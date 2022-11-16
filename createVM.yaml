@@ -43,7 +43,7 @@
           access: Allow
           priority: 1001
           direction: Outbound
-        - name: HTTP
+        - name: Talend_port
           protocol: Tcp
           destination_port_range: 8043
           access: Allow
