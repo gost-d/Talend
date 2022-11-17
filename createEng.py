@@ -65,3 +65,8 @@ def createRemoteEngine(name="testName ", env = "default", personalToken = pToken
         key, engineName = createRemoteEngine()
         with open('preAuthoKey.txt', 'w') as f:
             f.write(key)
+   
+
+getWorkSpaceAndEnvIds()
+createRemoteEngine()
+
