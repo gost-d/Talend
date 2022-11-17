@@ -28,7 +28,6 @@
     - name: Prepare environment
       become: true
       ansible.builtin.shell: |
-        apt install unzip -y
         unzip Talend-RemoteEngine-V2.11.7-229.zip
         export PAIRING_KEY=$(cat preAuthoKey.txt)
         echo "remote.engine.pre.authorized.key = $PAIRING_KEY" > Talend-RemoteEngine-V2.11.7/etc/preauthorized.key.cfg
