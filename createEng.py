@@ -5,6 +5,11 @@ import json
 from datetime import datetime
 
 
+pToken = "Bearer Kehw0e7oT2OeCmQ4wnZRgKiS5rJQ8Ws2Drh_5fw2kQ7RLDWgH6pIgpi7eEvZHHsQ"
+talendWorkspaces = "https://api.eu.cloud.talend.com/orchestration/workspaces"
+headers = {'Authorization': pToken}
+
+
 def getWorkSpaceAndEnvIds(env="default", personalToken = pToken):
     """
     Function to get workspace and environment id`s
