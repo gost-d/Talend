@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 import requests as rq
 import json
@@ -61,12 +61,6 @@ def createRemoteEngine(name="testName ", env = "default", personalToken = pToken
     return jsonResp["preAuthorizedKey"], jsonResp["name"]
 
 
-    if __name__ == "__main__":
-        key, engineName = createRemoteEngine()
-        with open('preAuthoKey.txt', 'w') as f:
-            f.write(key)
-   
-
-getWorkSpaceAndEnvIds()
-createRemoteEngine()
-
+key, engineName = createRemoteEngine()
+with open('/home/preAuthoKey.txt', 'w') as f:
+    f.write(key)
