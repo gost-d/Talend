@@ -12,15 +12,18 @@
       apt:
         name: openjdk-11-jdk
         state: present
-    - name: Download Talend Remote Engine 
+    - name: Download azcopy 
       become: yes
       ansible.builtin.shell: |
         wget https://aka.ms/downloadazcopy-v10-linux
         tar -xvf downloadazcopy-v10-linux
         rm /usr/bin/azcopy
         cp ./azcopy_linux_amd64_*/azcopy /usr/bin/
-        azcopy copy 'https://ansibletest12345678.blob.core.windows.net/ansible-test/Talend-RemoteEngine-V2.11.7-229.zip' .
-        azcopy copy 'https://ansibletest12345678.blob.core.windows.net/ansible-test/preAuthoKey.txt' .
+    - name: Download Talend Remote Engine 
+      become: yes
+      ansible.builtin.shell: |
+        azcopy copy "https://ansibletest12345678.blob.core.windows.net/ansible-test/Talend-RemoteEngine-V2.11.7-229.zip?sp=racw&st=2022-11-17T16:08:22Z&se=2022-11-18T00:08:22Z&spr=https&sv=2021-06-08&sr=c&sig=uTau0CsXGKVnQRx3L66DRrLKVzFwMAsNykLvCfF6FSc%3D" .
+    - name: Install unzip 
     - name: Install unzip 
       ansible.builtin.apt:
         name: unzip
