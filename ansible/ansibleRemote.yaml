@@ -1,0 +1,47 @@
+ - name: Install Remote Engine Playbook
+   gather_facts: true
+   hosts: all
+   become: true
+   tasks:
+    - name: Update apt
+      become: yes
+      ansible.builtin.shell: |
+        sudo apt update
+    - name: Task -2 Install Java using Ansible
+      become: yes
+      apt:
+        name: openjdk-11-jdk
+        state: present
+    - name: Download Talend Remote Engine 
+      become: yes
+      ansible.builtin.shell: |
+        wget https://aka.ms/downloadazcopy-v10-linux
+        tar -xvf downloadazcopy-v10-linux
+        rm /usr/bin/azcopy
+        cp ./azcopy_linux_amd64_*/azcopy /usr/bin/
+        azcopy copy 'https://ansibletest12345678.blob.core.windows.net/ansible-test/Talend-RemoteEngine-V2.11.7-229.zip' .
+        azcopy copy 'https://ansibletest12345678.blob.core.windows.net/ansible-test/preAuthoKey.txt' .
+    - name: Install unzip 
+      ansible.builtin.apt:
+        name: unzip
+        state: present 
+    - name: Prepare environment
+      become: true
+      ansible.builtin.shell: |
+        unzip Talend-RemoteEngine-V2.11.7-229.zip
+        export PAIRING_KEY=$(cat preAuthoKey.txt)
+        echo "remote.engine.pre.authorized.key = $PAIRING_KEY" > Talend-RemoteEngine-V2.11.7/etc/preauthorized.key.cfg
+        echo "pairing.service.url=https://pair.eu.cloud.talend.com" > Talend-RemoteEngine-V2.11.7/etc/org.talend.ipaas.rt.pairing.client.cfg
+    - name: Install Remote Engine
+      become: true
+      ansible.builtin.shell: |
+        export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+        export PATH=$PATH:$JAVA_HOME
+        cd /home/azureuser/Talend-RemoteEngine-V2.11.7/bin
+        echo "feature:install wrapper \n wrapper:install -n talend-remote-engine \n logout" | sh trun
+    - name: Run talend-remote-engine.service
+      become: yes
+      ansible.builtin.shell: |
+        cp /home/azureuser/Talend-RemoteEngine-V2.11.7/bin/talend-remote-engine.service /etc/systemd/system/
+        sudo systemctl daemon-reload
+        sudo systemctl start talend-remote-engine.service
