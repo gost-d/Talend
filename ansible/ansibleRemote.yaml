@@ -27,7 +27,7 @@
     - name: Download Talend Remote Engine 
       become: yes
       ansible.builtin.shell: |
-        azcopy copy 'https://ansibletest12345678.blob.core.windows.net/ansible-test?sp=r&st=2022-11-21T08:23:03Z&se=2022-11-23T16:23:03Z&spr=https&sv=2021-06-08&sr=c&sig=FGq%2FB%2Bx6QccYnvZHvVTzhScvGyPSJU5ld0Ygj74cCgQ%3D' .
+        azcopy copy 'https://ansibletest12345678.blob.core.windows.net/ansible-test/Talend-RemoteEngine-V2.11.7-229.zip?sp=r&st=2022-11-21T08:23:03Z&se=2022-11-23T16:23:03Z&spr=https&sv=2021-06-08&sr=c&sig=FGq%2FB%2Bx6QccYnvZHvVTzhScvGyPSJU5ld0Ygj74cCgQ%3D' .
     - name: Install unzip 
       ansible.builtin.apt:
         name: unzip
