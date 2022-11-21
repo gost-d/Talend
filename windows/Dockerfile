@@ -30,7 +30,7 @@ EXPOSE 22
 
 USER ansible
 
-
+#docker run --security-opt=no-new-privileges:true
 
 
 
